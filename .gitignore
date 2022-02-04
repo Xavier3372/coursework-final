@@ -1,6 +1,5 @@
 venv/
 tfod/
-protoc/
 images/
 *.jpg
 *.xml
