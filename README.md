@@ -1,4 +1,4 @@
-# Coursework
+# SST Coursework 2022
 
 <p>A python application that utilises the tensorflow object detection algorithm to achieve automatic detection of american sign language gestures.</p>
 
