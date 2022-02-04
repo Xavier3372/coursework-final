@@ -79,7 +79,7 @@ while cap.isOpened():
         category_index,
         use_normalized_coordinates=True,
         max_boxes_to_draw=5,
-        min_score_thresh=.4,
+        min_score_thresh=.3,
         agnostic_mode=False)
 
     cv2.imshow('object detection',  cv2.resize(
