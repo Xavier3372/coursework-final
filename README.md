@@ -31,7 +31,7 @@ pip install -r requirements.txt
 <br/>
 <b>Step 6.</b> Deactivate the virtual environment
 <pre>
-Deactivate
+deactivate
 </pre>
 <br/>
 <b>Step 7.</b> Install Protobuf
