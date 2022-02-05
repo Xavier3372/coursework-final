@@ -38,6 +38,7 @@ deactivate
 <pre>
 brew install protobuf
 </pre>
+<br/>
 <b>Step 8.</b> clone tensorflow object detection library
 <pre>
 git clone https://github.com/tensorflow/models
