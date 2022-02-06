@@ -50,7 +50,7 @@ source venv/bin/activate # Mac
 .\venv\Scripts\activate # Windows 
 </pre>
 <br/>
-<b>Step 10.</b> Build the tensorflow object detection library
+<b>Step 10.</b> Install the tensorflow object detection library
 <pre>
 cd models/research && protoc object_detection/protos/*.proto --python_out=. && cp object_detection/packages/tf2/setup.py . && python -m pip install .
 </pre>
