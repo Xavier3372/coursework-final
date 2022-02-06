@@ -13,13 +13,12 @@ LABEL_MAP_NAME = 'label_map.pbtxt'
 paths = {
     'WORKSPACE_PATH': os.path.join('Tensorflow', 'workspace'),
     'ANNOTATION_PATH': os.path.join('Tensorflow', 'workspace', 'annotations'),
-    'MODEL_PATH': os.path.join('Tensorflow', 'workspace', 'models'),
-    'CHECKPOINT_PATH': os.path.join('Tensorflow', 'workspace', 'models', CUSTOM_MODEL_NAME),
-    'OUTPUT_PATH': os.path.join('Tensorflow', 'workspace', 'models', CUSTOM_MODEL_NAME, 'export'),
+    'MODEL_PATH': os.path.join('Tensorflow', 'workspace', 'model'),
+    'CHECKPOINT_PATH': os.path.join('Tensorflow', 'workspace', 'model', CUSTOM_MODEL_NAME),
 }
 
 files = {
-    'PIPELINE_CONFIG': os.path.join('Tensorflow', 'workspace', 'models', CUSTOM_MODEL_NAME, 'pipeline.config'),
+    'PIPELINE_CONFIG': os.path.join('Tensorflow', 'workspace', 'model', CUSTOM_MODEL_NAME, 'pipeline.config'),
     'LABELMAP': os.path.join(paths['ANNOTATION_PATH'], LABEL_MAP_NAME)
 }
 
@@ -35,7 +34,7 @@ print("model loaded")
 # Restore checkpoint
 ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
 ckpt.restore(os.path.join(
-    paths['CHECKPOINT_PATH'], 'ckpt-21')).expect_partial()
+    paths['CHECKPOINT_PATH'], 'ckpt-101')).expect_partial()
 print('checkpoint restored')
 
 
