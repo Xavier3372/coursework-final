@@ -90,4 +90,4 @@ python3 app.py
 **[Pre-trained Tensorflow object detection models](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md)**
 
 
-**Special Thanks to [Nicholas Renotte](https://www.youtube.com/c/NicholasRenotte) for providing us with an introduction to Tensorflow transfer learning, as well as providing us with a [simple guide](https://github.com/nicknochnack/TFODCourse) to Tensorflow object detection.**
+**Special Thanks to [Nicholas Renotte](https://www.youtube.com/c/NicholasRenotte) for giving us with an in depth introduction to Tensorflow transfer learning, as well as providing us with a [simple guide](https://github.com/nicknochnack/TFODCourse) to Tensorflow object detection.**
