@@ -4,30 +4,54 @@ import random
 from textwrap import wrap
 from tkinter import W
 from PySide6 import QtCore, QtWidgets, QtGui
+from cv2 import QRCodeDetector
+from matplotlib.widgets import Widget
 
 
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Translator")
+        
+        self.setGeometry(83,35,1200,700)
+
         self.translatedText = ""
-        self.count = 0
-        self.startbutton = QtWidgets.QPushButton("Start")
-        self.startbutton = QtWidgets.QPushButton("Stop")
-        self.text = QtWidgets.QLabel(
-            "Press the button", alignment=QtCore.Qt.AlignCenter)
+        self.startbutton = QtWidgets.QPushButton("Start",self) 
+        self.endbutton = QtWidgets.QPushButton("End",self)
+        self.scr = QtWidgets.QPushButton("Screen",self)
+        self.text = QtWidgets.QLabel("text goes here",self)
+        self.scr.resize(960,540) #placeholder for screen
+        self.scr.move(120,0)
+        self.endbutton.resize(100,100)
+        self.endbutton.move(950,550)
+        self.startbutton.resize(100,100)
+        self.startbutton.move(150,550)
+        self.text.move(550,550)
+        #self.text = QtWidgets.QLabel(
+         #   "Press the button", alignment=QtCore.Qt.AlignCenter) 
+        '''self.layout = QtWidgets.QHBoxLayout(self) #
+        self.layout.addWidget(self.startbutton)
+        self.layout.addWidget(self.endbutton) '''
 
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
+        self.startbutton.clicked.connect(self.startcamera)
+        self.endbutton.clicked.connect(self.endcamera)
+    
+    def updatetext(self,pain):
+        
+        if pain == "start":
+            print("start")
+            if pain == "end":
+                print("end")    
+    def startcamera(self): # what button does
+        self.updatetext("start")
+    def endcamera(self):
+        self.updatetext("end")
+    
 
-        self.button.clicked.connect(self.addL)
+    
+    
 
-    @QtCore.Slot()
-    def addL(self):
-        self.count += 1
-        self.translatedText = self.translatedText + "L" * self.count
-        self.text.setText(self.translatedText)
+        
 
 
 if __name__ == "__main__":
