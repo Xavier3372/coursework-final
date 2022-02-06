@@ -89,6 +89,6 @@ python3 app.py
 
 **[Pre-trained Tensorflow object detection models](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md)**
 
-**[Label Image python project](https://github.com/tzutalin/labelImg)***
+**[Label Image python project](https://github.com/tzutalin/labelImg)**
 
 **Special Thanks to [Nicholas Renotte](https://www.youtube.com/c/NicholasRenotte) for giving us with an in depth introduction to Tensorflow transfer learning, as well as providing us with a [simple guide](https://github.com/nicknochnack/TFODCourse) to Tensorflow object detection.**
