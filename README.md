@@ -8,7 +8,7 @@ This app was created to allow for the more seamless integration of **American Si
 
 The app utilises a machine learning model that was trained through **transfer learning** with pre-trained object detection models from the Tensorflow model zoo. The Tensorflow object detection library is utilised to allow for the real time detection of hand gestures from the webcam. Jupyter notebooks used for dataset collection and model training can be found under the Training programs folder in Tensorflow/workspace. A list of dependencies used in this project can be found in the requirements.txt file. All reference material used during the creation of this projects can be found in the credits section below. The dataset used for the training of the tensorflow model can be found **[here](https://drive.google.com/drive/folders/1bFOTeoUWdaG37eiMCa2sYimpsN4JxU3f?usp=sharing)**.
 
-Disclaimer: This is a **prototype** machine learning app built on a **limited** dataset with **limited** computational hardware, we are unable to guarantee 100% accuracy in the detection of hand gestures
+Disclaimer: This is a **prototype** machine learning app built on a **limited** dataset with **limited** computational power, we are unable to guarantee 100% accuracy in the detection of hand gestures
 
 
 ## Installation Steps
