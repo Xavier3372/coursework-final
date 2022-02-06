@@ -36,7 +36,7 @@ ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
 ckpt.restore(os.path.join(
     paths['CHECKPOINT_PATH'], 'ckpt-101')).expect_partial()
 print('checkpoint restored')
-
+ 
 
 @tf.function
 def detect_fn(image):
