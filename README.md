@@ -1,6 +1,15 @@
 # SST Coursework 2022
 
+## About the app
+
 <p>A python application that utilises the tensorflow object detection algorithm to achieve automatic detection of american sign language gestures.</p>
+<br/>
+<p>Disclaimer: This is a <b>prototype</b> machine learning app built on a <b>limited</b> dataset, we are unable to guarantee 100% accuracy in the detection of hand gestures</p>
+<br/>
+<p> This app was created to allow for the more seamless integration of communication through american sign language(asl) into our daily lives through the use of machine learning in order to construct a realtime asl translator in python. The translator features autocorrect features, as well as an intuitive gui to help with the usage of the app.</p>
+<br/>
+<p> The app utilises a machine learning model that was trained through transfer learning with pre-trained object detection models from the tensorflow model garden. The tensorflow object detection library is utilised to allow for the real time detection of hand gestures from the webcam. Jupyter notebooks used for dataset collection and model training can  be found under the Training programs folder in Tensorflow/workspace. All reference material used during the creation of this projects can be found in the credits section below. The dataset used for the trainig of the tensorflow model can be found [here](https://drive.google.com/drive/folders/1bFOTeoUWdaG37eiMCa2sYimpsN4JxU3f?usp=sharing).</p>
+
 
 ## Installation Steps
 
@@ -59,3 +68,16 @@ cd models/research && protoc object_detection/protos/*.proto --python_out=. && c
 <pre>
 python3 app.py
 </pre>
+
+## Credits
+### Contributers
+<p> Below is a list of contributers who helped with the creation of this project </p>
+<br/>
+<b>[Jovan Ang](https://github.com/DudeNav0J)</b>
+<br/>
+<b>[Jerald Tee](https://github.com/jeraldtea)</b>
+<br/>
+<b>[Xavier Koh](https://github.com/Xavier3372)</b>
+</br>
+### References
+<p> Below is a list of websites, videos and repositories referenced and used in the creation of this project </p>
