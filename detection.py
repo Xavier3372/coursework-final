@@ -23,7 +23,7 @@ labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 
           'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'nothing']
 
 
-def detect():
+def detectTest():
     cap = cv2.VideoCapture(0)
     while(True):
 
@@ -85,4 +85,4 @@ def detectImg():
     return frame
 
 
-detect()
+detectTest()

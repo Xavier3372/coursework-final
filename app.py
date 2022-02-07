@@ -16,15 +16,6 @@ from autocorrect import *
 import os
 import detection as dt
 
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Activation, Dropout
-from tensorflow.keras.losses import sparse_categorical_crossentropy
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import tensorflow_hub as hub
-import numpy as np
-import matplotlib.pyplot as plt
 import cv2
 
 a = 0
@@ -32,13 +23,6 @@ translatedText = "futher"
 
 model_path = 'model/asl_model'
 predicted_char = "nothing"
-
-
-model = tf.keras.models.load_model('model/asl_model')
-print('model loaded')
-model.summary()
-labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-          'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'nothing']
 
 
 class Thread(QThread):
@@ -49,7 +33,6 @@ class Thread(QThread):
         self.status = True
 
     def run(self):
-        self.cap = cv2.VideoCapture(0)
         while self.status:
             frame = dt.detectImg()
 
