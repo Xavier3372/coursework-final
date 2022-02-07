@@ -5,6 +5,11 @@ import random
 from textwrap import wrap
 from tkinter import W
 from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6.QtCore import Qt, QThread, Signal, Slot
+from PySide6.QtGui import QAction, QImage, QKeySequence, QPixmap
+from PySide6.QtWidgets import (QApplication, QComboBox, QGroupBox,
+                               QHBoxLayout, QLabel, QMainWindow, QPushButton,
+                               QSizePolicy, QVBoxLayout, QWidget)
 from cv2 import QRCodeDetector
 from matplotlib.widgets import Widget
 from autocorrect import *
@@ -19,20 +24,65 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import tensorflow_hub as hub
 import numpy as np
 import matplotlib.pyplot as plt
-
+import cv2
 
 a = 0
 translatedText = "futher"
+
 model_path = 'model/asl_model'
+predicted_char = "nothing"
 
 
 model = tf.keras.models.load_model('model/asl_model')
+print('model loaded')
 model.summary()
 data_dir = 'dataset/asl_alphabet_train/asl_alphabet_train'
-# getting the labels form data directory
-labels = sorted(os.listdir(data_dir))
-labels[-1] = 'nothing'
-print(labels)
+labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+          'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'nothing']
+
+
+class Thread(QThread):
+    updateFrame = Signal(QImage)
+
+    def __init__(self, parent=None):
+        QThread.__init__(self, parent)
+        self.status = True
+
+    def run(self):
+        self.cap = cv2.VideoCapture(0)
+        while self.status:
+
+            _, frame = self.cap.read()
+            cv2.rectangle(frame, (100, 100), (300, 300), (0, 0, 255), 5)
+
+            roi = frame[100:300, 100:300]
+            img = cv2.resize(roi, (224, 224))
+
+            img = img/255
+
+            prediction = model.predict(img.reshape(1, 224, 224, 3))
+            char_index = np.argmax(prediction)
+
+            confidence = round(prediction[0, char_index]*100, 1)
+            predicted_char = labels[char_index]
+
+            font = cv2.FONT_HERSHEY_TRIPLEX
+            fontScale = 1
+            color = (0, 255, 255)
+            thickness = 2
+
+            msg = predicted_char + ', Conf: ' + str(confidence)+' %'
+            cv2.putText(frame, msg, (80, 80), font,
+                        fontScale, color, thickness)
+
+            color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+            h, w, ch = color_frame.shape
+            img = QImage(color_frame.data, w, h, ch * w, QImage.Format_RGB888)
+            scaled_img = img.scaled(640, 480, Qt.KeepAspectRatio)
+
+            self.updateFrame.emit(scaled_img)
+        sys.exit(-1)
 
 
 class MyWidget(QtWidgets.QWidget):
@@ -43,6 +93,9 @@ class MyWidget(QtWidgets.QWidget):
         self.setWindowTitle("Translator")
 
         self.setGeometry(83, 35, 1100, 700)
+        self.th = Thread(self)
+        self.th.finished.connect(self.close)
+        self.th.updateFrame.connect(self.setImage)
 
         self.startbutton = QtWidgets.QPushButton("Start", self)
         self.nextWord = QtWidgets.QPushButton("New Word", self)
