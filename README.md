@@ -15,7 +15,11 @@ Disclaimer: This is a **prototype** machine learning app built on a **limited** 
 
 <b>Step 1.</b> Clone this [repository](https://github.com/Xavier3372/coursework-final)
 
-
+<b>Step 2.</b> Install protocol buffers
+<pre>
+# In a terminal window
+brew install protobuf
+</pre>
 
 <b>Step 2.</b> Open a new terminal window and cd into the program directory
 <pre>
