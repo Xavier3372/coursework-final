@@ -85,10 +85,4 @@ python3 app.py
 ### References
 <p> Below is a list of websites, videos and repositories referenced and used in the creation of this project </p>
 
-**[Tensorflow Model Garden](https://github.com/tensorflow/models)**
-
-**[Pre-trained Tensorflow object detection models](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md)**
-
-**[Label Image python graphical image annotation tool](https://github.com/tzutalin/labelImg)**
-
 **Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on which to base our training of the machine learning model.**
