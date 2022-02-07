@@ -2,3 +2,5 @@ venv/
 models/
 dataset/
 *.jpg
+*.jpeg
+*.png
