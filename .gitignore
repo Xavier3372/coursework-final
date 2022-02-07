@@ -1,6 +1,7 @@
 venv/
 models/
 dataset/
+__pycache__/
 *.jpg
 *.jpeg
 *.png
