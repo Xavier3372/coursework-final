@@ -6,7 +6,7 @@ A python application that utilises the tensorflow object detection algorithm to 
 
 This app was created to allow for the more seamless integration of **American Sign Language(ASL)** into our daily lives through the use of a **machine learning model** in order to construct a realtime ASL translator in python. The translator features autocorrect features, as well as an intuitive gui to help with the usage of the app.
 
-The app utilises a machine learning model that was trained through **transfer learning** with pre-trained object detection models from the Tensorflow model zoo. The Tensorflow object detection library is utilised to allow for the real time detection of hand gestures from the webcam. Jupyter notebooks used for dataset collection and model training can be found under the Training programs folder in Tensorflow/workspace. A list of dependencies used in this project can be found in the requirements.txt file. All reference material used during the creation of this projects can be found in the credits section below. The dataset used for the training of the machine learning model can be found **[here](https://drive.google.com/drive/folders/1bFOTeoUWdaG37eiMCa2sYimpsN4JxU3f?usp=sharing)**.
+The app utilises a machine learning model that was trained through **transfer learning** with pre-trained object detection models from the Tensorflow model zoo. The Tensorflow object detection library is utilised to allow for the real time detection of hand gestures from the webcam. Jupyter notebooks used for dataset collection and model training can be found under the Training programs folder in Tensorflow/workspace. A list of dependencies used in this project can be found in the requirements.txt file. All reference material used during the creation of this projects can be found in the credits section below. The dataset used for the training of the machine learning model can be found **[here](https://www.kaggle.com/grassknoted/asl-alphabet)**.
 
 Disclaimer: This is a **prototype** machine learning app built on a **limited** dataset with **limited** computational power, we are unable to guarantee 100% accuracy in the detection of hand gestures
 
@@ -91,4 +91,4 @@ python3 app.py
 
 **[Label Image python graphical image annotation tool](https://github.com/tzutalin/labelImg)**
 
-**Special Thanks to [Nicholas Renotte](https://www.youtube.com/c/NicholasRenotte) for giving us with an in depth introduction to Tensorflow transfer learning, as well as providing us with a [simple guide](https://github.com/nicknochnack/TFODCourse) to Tensorflow object detection.**
+**Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on which to base our training of the machine learning model.**
