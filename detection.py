@@ -1,14 +1,5 @@
-import os
-from tkinter import Frame
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Activation, Dropout
-from tensorflow.keras.losses import sparse_categorical_crossentropy
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import tensorflow_hub as hub
 import numpy as np
-import matplotlib.pyplot as plt
 import cv2
 import numpy as np
 
