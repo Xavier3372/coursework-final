@@ -7,11 +7,12 @@ from tkinter import W
 from PySide6 import QtCore, QtWidgets, QtGui
 from cv2 import QRCodeDetector
 from matplotlib.widgets import Widget
-from autocorrect import autoCorrect
+from autocorrect import *
 
 
 a = 0
-translatedText = ""
+translatedText = "futher"
+
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):
         global translatedText
@@ -27,7 +28,7 @@ class MyWidget(QtWidgets.QWidget):
         self.endbutton = QtWidgets.QPushButton("End",self)
         self.scr = QtWidgets.QPushButton("Screen",self)
 
-        self.text = QtWidgets.QLabel("",self)
+        self.text = QtWidgets.QLabel(translatedText,self)
         self.text.setAlignment(QtCore.Qt.AlignCenter)
         self.text.setWordWrap(True)
         self.text.move(70,430)
@@ -84,28 +85,23 @@ class MyWidget(QtWidgets.QWidget):
             print("started")
             a = 1
             self.camera()
+
     def endcamera(self):
         global a
         if a == 1:
             a = 2
             print("ended")
             self.camera()
+
     def nextword(self):
         global translatedText
-        translatedText += autoCorrect(translatedText)
+        translatedText = (autoCorrect(translatedText)[0])
         self.updatetext()
+
     def putwordhere(letter):
         global translatedText
         translatedText += letter
 
-
-
-    
-
-    
-    
-
-        
 
 
 if __name__ == "__main__":

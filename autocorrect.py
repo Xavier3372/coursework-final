@@ -7,8 +7,6 @@ nltk.download('words')
 
 spelling_words = pd.Series(words.words())
 
-wd = "mdther"
-
 def autoCorrect(wd): #Checks edit distance, smaller edit distance = closest word match
     right_words = []
     nltk.download('words')
@@ -20,6 +18,6 @@ def autoCorrect(wd): #Checks edit distance, smaller edit distance = closest word
     right_words.append(closest[1]) #appends the corrected word
     return right_words
 
-a = autoCorrect(wd)
-print(a[0])
+
+
 
