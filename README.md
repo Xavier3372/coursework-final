@@ -41,33 +41,7 @@ pip install cython numpy six
 pip install -r requirements.txt 
 </pre>
 
-<b>Step 6.</b> Deactivate the virtual environment
-<pre>
-deactivate
-</pre>
-
-<b>Step 7.</b> Install Protobuf
-<pre>
-brew install protobuf
-</pre>
-
-<b>Step 8.</b> clone tensorflow object detection library
-<pre>
-git clone https://github.com/tensorflow/models
-</pre>
-
-<b>Step 9.</b> Activate the venv
-<pre>
-source venv/bin/activate # Mac
-.\venv\Scripts\activate # Windows 
-</pre>
-
-<b>Step 10.</b> Install the tensorflow object detection library
-<pre>
-cd models/research && protoc object_detection/protos/*.proto --python_out=. && cp object_detection/packages/tf2/setup.py . && python -m pip install .
-</pre>
-
-<b>Step 11.</b> Run the app
+<b>Step 6.</b> Run the app
 <pre>
 python3 app.py
 </pre>
@@ -85,4 +59,4 @@ python3 app.py
 ### References
 <p> Below is a list of websites, videos and repositories referenced and used in the creation of this project </p>
 
-**Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on which to base our training of the machine learning model.**
+**Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on train the machine learning model.**
