@@ -97,12 +97,12 @@ class Window(QMainWindow):
         self.th.finished.connect(self.close)
         self.th.updateFrame.connect(self.setImage)
 
-        self.startbutton = QtWidgets.QPushButton("Start", self)
-        self.nextWord = QtWidgets.QPushButton("New Word", self)
-        self.endbutton = QtWidgets.QPushButton("End", self)
-        self.scr = QtWidgets.QPushButton("Screen", self)
+        self.startbutton = QPushButton("Start", self)
+        self.nextWord = QPushButton("New Word", self)
+        self.endbutton = QPushButton("End", self)
+        self.scr = QPushButton("Screen", self)
 
-        self.text = QtWidgets.QLabel(translatedText, self)
+        self.text = QLabel(translatedText, self)
         self.text.setAlignment(QtCore.Qt.AlignCenter)
         self.text.setWordWrap(True)
         self.text.move(70, 430)
