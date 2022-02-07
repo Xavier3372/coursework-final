@@ -41,33 +41,7 @@ pip install cython numpy six
 pip install -r requirements.txt 
 </pre>
 
-<b>Step 6.</b> Deactivate the virtual environment
-<pre>
-deactivate
-</pre>
-
-<b>Step 7.</b> Install Protobuf
-<pre>
-brew install protobuf
-</pre>
-
-<b>Step 8.</b> clone tensorflow object detection library
-<pre>
-git clone https://github.com/tensorflow/models
-</pre>
-
-<b>Step 9.</b> Activate the venv
-<pre>
-source venv/bin/activate # Mac
-.\venv\Scripts\activate # Windows 
-</pre>
-
-<b>Step 10.</b> Install the tensorflow object detection library
-<pre>
-cd models/research && protoc object_detection/protos/*.proto --python_out=. && cp object_detection/packages/tf2/setup.py . && python -m pip install .
-</pre>
-
-<b>Step 11.</b> Run the app
+<b>Step 6.</b> Run the app
 <pre>
 python3 app.py
 </pre>
