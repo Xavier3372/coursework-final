@@ -15,37 +15,43 @@ Disclaimer: This is a **prototype** machine learning app built on a **limited** 
 
 <b>Step 1.</b> Clone this [repository](https://github.com/Xavier3372/coursework-final)
 
+
 <b>Step 2.</b> Install protocol buffers
 <pre>
 # In a terminal window
 brew install protobuf
 </pre>
 
-<b>Step 2.</b> Open a new terminal window and cd into the program directory
+
+<b>Step 3.</b> Open a new terminal window and cd into the program directory
 <pre>
 # In a new terminal window
 cd {your program directory here}
 </pre>
 
-<b>Step 3.</b> Create a virtual environment
+
+<b>Step 4.</b> Create a virtual environment
 <pre>
 pip install virtualenv
 virtualenv venv 
 </pre>
 
-<b>Step 4.</b> Activate the virtual environment
+
+<b>Step 5.</b> Activate the virtual environment
 <pre>
 source venv/bin/activate # Mac
 .\venv\Scripts\activate # Windows 
 </pre>
 
-<b>Step 5.</b> Install dependencies
+
+<b>Step 6.</b> Install dependencies
 <pre>
 pip install cython numpy six
 pip install -r requirements.txt 
 </pre>
 
-<b>Step 6.</b> Run the app
+
+<b>Step 7.</b> Run the app
 <pre>
 python3 app.py
 </pre>
