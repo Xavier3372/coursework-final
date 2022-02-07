@@ -61,8 +61,13 @@ class MyWidget(QtWidgets.QWidget):
         self.endbutton.resize(100, 100)
         self.endbutton.move(850, 550)
 
+        self.endbutton.resize(100, 100)
+        self.endbutton.move(850, 550)
+
         self.startbutton.resize(100, 100)
         self.startbutton.move(150, 550)
+        self.startbutton.setStyleSheet(
+            "background-image : url(xavier_angy.jpg);")
         '''self.startbutton.setStyleSheet(
             "border-style: outset;"
             "border-radius : 50;" 
