@@ -1,4 +1,5 @@
 import os
+from tkinter import Frame
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Activation, Dropout
@@ -55,6 +56,33 @@ def detect():
 
     cap.release()
     cv2.destroyAllWindows()
+
+
+def detectImg():
+    cap = cv2.VideoCapture(0)
+
+    frame = cap.read()
+    cv2.rectangle(frame, (100, 100), (300, 300), (0, 0, 255), 5)
+
+    roi = frame[100:300, 100:300]
+    img = cv2.resize(roi, (224, 224))
+
+    img = img/255
+
+    prediction = model.predict(img.reshape(1, 224, 224, 3))
+    char_index = np.argmax(prediction)
+
+    confidence = round(prediction[0, char_index]*100, 1)
+    predicted_char = labels[char_index]
+
+    font = cv2.FONT_HERSHEY_TRIPLEX
+    fontScale = 1
+    color = (0, 255, 255)
+    thickness = 2
+
+    msg = predicted_char + ', Conf: ' + str(confidence)+' %'
+    cv2.putText(frame, msg, (80, 80), font, fontScale, color, thickness)
+    return frame
 
 
 detect()
