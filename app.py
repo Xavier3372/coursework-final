@@ -1,7 +1,6 @@
 from ctypes import alignment
 from re import A
 import sys
-import random
 from textwrap import wrap
 from tkinter import W
 from PySide6 import QtCore, QtWidgets, QtGui
@@ -36,7 +35,7 @@ class Thread(QThread):
         while self.status:
             frame = dt.detectImg()
 
-            color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            color_frame = cv2.cvtColor(frame[0], cv2.COLOR_BGR2RGB)
 
             h, w, ch = color_frame.shape
             img = QImage(color_frame.data, w, h, ch * w, QImage.Format_RGB888)

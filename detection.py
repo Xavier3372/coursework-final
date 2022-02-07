@@ -82,7 +82,7 @@ def detectImg():
 
     msg = predicted_char + ', Conf: ' + str(confidence)+' %'
     cv2.putText(frame, msg, (80, 80), font, fontScale, color, thickness)
-    return frame
+    return frame, predicted_char
 
 
 detectTest()
