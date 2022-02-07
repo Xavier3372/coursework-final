@@ -85,7 +85,7 @@ class Thread(QThread):
         sys.exit(-1)
 
 
-class MyWidget(QtWidgets.QWidget):
+class Window(QMainWindow):
     def __init__(self):
         global translatedText
 
@@ -157,6 +157,7 @@ class MyWidget(QtWidgets.QWidget):
             print("started")
             a = 1
             self.camera()
+            self.th.start()
 
     def endcamera(self):
         global a
@@ -176,9 +177,7 @@ class MyWidget(QtWidgets.QWidget):
 
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-
-    widget = MyWidget()
-    widget.show()
-
+    app = QApplication()
+    w = Window()
+    w.show()
     sys.exit(app.exec())
