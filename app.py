@@ -3,25 +3,34 @@ from re import A
 import sys
 from textwrap import wrap
 from tkinter import W
+from turtle import right
 from PySide6 import QtCore, QtWidgets, QtGui
 from PySide6.QtCore import Qt, QThread, Signal, Slot
 from PySide6.QtGui import QAction, QImage, QKeySequence, QPixmap
 from PySide6.QtWidgets import (QApplication, QComboBox, QGroupBox,
                                QHBoxLayout, QLabel, QMainWindow, QPushButton,
                                QSizePolicy, QVBoxLayout, QWidget)
+import tensorflow as tf
+import numpy as np
+import autocorrect as ac
+
 from cv2 import QRCodeDetector
 from matplotlib.widgets import Widget
-from autocorrect import *
 import os
-import detection as dt
+import time
 
 import cv2
 
-a = 0
-translatedText = "futher"
-
 model_path = 'model/asl_model'
 predicted_char = "nothing"
+
+
+model = tf.keras.models.load_model('model/asl_model')
+print('model loaded')
+model.summary()
+data_dir = 'dataset/asl_alphabet_train/asl_alphabet_train'
+labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+          'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'nothing']
 
 
 class Thread(QThread):
@@ -30,114 +39,133 @@ class Thread(QThread):
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         self.status = True
+        self.cap = True
 
     def run(self):
+        self.cap = cv2.VideoCapture(0)
         while self.status:
-            frame = dt.detectImg()
+            _, frame = self.cap.read()
+            cv2.rectangle(frame, (100, 100), (300, 300), (0, 0, 255), 5)
 
-            color_frame = cv2.cvtColor(frame[0], cv2.COLOR_BGR2RGB)
+            roi = frame[100:300, 100:300]
+            img = cv2.resize(roi, (224, 224))
 
+            img = img/255
+
+            prediction = model.predict(img.reshape(1, 224, 224, 3))
+            char_index = np.argmax(prediction)
+
+            confidence = round(prediction[0, char_index]*100, 1)
+            predicted_char = labels[char_index]
+
+            font = cv2.FONT_HERSHEY_TRIPLEX
+            fontScale = 1
+            color = (0, 255, 255)
+            thickness = 2
+
+            msg = predicted_char + ', Conf: ' + str(confidence)+' %'
+            cv2.putText(frame, msg, (80, 80), font,
+                        fontScale, color, thickness)
+
+            color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             h, w, ch = color_frame.shape
             img = QImage(color_frame.data, w, h, ch * w, QImage.Format_RGB888)
-            scaled_img = img.scaled(640, 480, Qt.KeepAspectRatio)
+            scaled_img = img.scaled(960, 540, Qt.KeepAspectRatio)
 
             self.updateFrame.emit(scaled_img)
+            print(predicted_char)
         sys.exit(-1)
 
 
 class Window(QMainWindow):
     def __init__(self):
-        global translatedText
-
         super().__init__()
-        self.setWindowTitle("Translator")
+        # Title and dimensions
+        self.setWindowTitle("ASL Recognition")
+        self.setGeometry(0, 0, 800, 500)
 
-        self.setGeometry(83, 35, 1100, 700)
+        # Create a label for the display camera
+        self.displayLabel = QLabel(self)
+        self.displayLabel.setFixedSize(960, 540)
+
+        # Declare variables
+        self.currentWord = "Hello"
+        self.sentence = ""
+
+        # Thread in charge of updating the image
         self.th = Thread(self)
         self.th.finished.connect(self.close)
         self.th.updateFrame.connect(self.setImage)
 
-        self.startbutton = QPushButton("Start", self)
-        self.nextWord = QPushButton("New Word", self)
-        self.endbutton = QPushButton("End", self)
-        self.scr = QPushButton("Screen", self)
+        # Labels layout
+        self.translatedLabel = QLabel("Translated text goes here")
+        self.translatedLabel.setWordWrap(True)
 
-        self.text = QLabel(translatedText, self)
-        self.text.setAlignment(QtCore.Qt.AlignCenter)
-        self.text.setWordWrap(True)
-        self.text.move(70, 430)
-        self.text.resize(1000, 100)
+        # Buttons layout
+        buttons_layout = QHBoxLayout()
+        self.spaceButton = QPushButton("Next Word")
+        self.backspaceButton = QPushButton("Backspace")
+        self.resetButton = QPushButton("Reset")
+        self.spaceButton.setSizePolicy(
+            QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.backspaceButton.setSizePolicy(
+            QSizePolicy.Preferred, QSizePolicy.Expanding)
+        self.resetButton.setSizePolicy(
+            QSizePolicy.Preferred, QSizePolicy.Expanding)
+        buttons_layout.addWidget(self.spaceButton)
+        buttons_layout.addWidget(self.backspaceButton)
+        buttons_layout.addWidget(self.resetButton)
 
-        self.scr.resize(800, 450)  # placeholder for screen
-        self.scr.move(150, 0)
+        bottomLayout = QHBoxLayout()
+        bottomLayout.addLayout(buttons_layout, 1)
 
-        self.endbutton.resize(100, 100)
-        self.endbutton.move(850, 550)
+        # Main layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.displayLabel)
+        layout.addWidget(self.translatedLabel)
+        layout.addLayout(bottomLayout)
 
-        self.endbutton.resize(100, 100)
-        self.endbutton.move(850, 550)
+        # Central widget
+        widget = QWidget(self)
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
 
-        self.startbutton.resize(100, 100)
-        self.startbutton.move(150, 550)
-        self.startbutton.setStyleSheet(
-            "background-image : url(xavier_angy.jpg);")
-        '''self.startbutton.setStyleSheet(
-            "border-style: outset;"
-            "border-radius : 50;" 
-            "border-width: 10px;"
-            "border-color: red;")'''
+        # Connections
+        self.start()
+        # self.startButton.clicked.connect()
+        self.resetButton.clicked.connect(self.reset)
+        self.backspaceButton.clicked.connect(self.backspace)
+        self.spaceButton.clicked.connect(self.space)
 
-        self.nextWord.resize(100, 100)
+    @Slot()
+    def start(self):
+        print("Starting...")
+        self.th.start()
 
-        # self.text = QtWidgets.QLabel(
-        #   "Press the button", alignment=QtCore.Qt.AlignCenter)
-        '''self.layout = QtWidgets.QHBoxLayout(self) #
-        self.layout.addWidget(self.startbutton)
-        self.layout.addWidget(self.endbutton) '''
-        self.startbutton.clicked.connect(self.startcamera)
-        self.endbutton.clicked.connect(self.endcamera)
-        self.nextWord.clicked.connect(self.nextword)
+    @Slot(QImage)
+    def setImage(self, image):
+        self.displayLabel.setPixmap(QPixmap.fromImage(image))
 
-    def updatetext(self):
-        global translatedText
-        self.text.setText(translatedText)
+    @Slot()
+    def reset(self):
+        self.sentence = ""
+        self.translatedLabel.setText(self.sentence + " " + self.currentWord)
 
-    def camera(self):
-        global a
-        print(a)
-        if a == 1:
-            print("start")
-        if a == 2:
-            print("stop")
+    @Slot()
+    def backspace(self):
+        self.currentWord = self.currentWord[:-1]
+        self.translatedLabel.setText(self.sentence + " " + self.currentWord)
 
-    def startcamera(self):  # what button does
-        global a
-        if a != 1:
-
-            print("started")
-            a = 1
-            self.camera()
-            self.th.start()
-
-    def endcamera(self):
-        global a
-        if a == 1:
-            a = 2
-            print("ended")
-            self.camera()
-
-    def nextword(self):
-        global translatedText
-        translatedText = (autoCorrect(translatedText)[0])
-        self.updatetext()
-
-    def putwordhere(letter):
-        global translatedText
-        translatedText += letter
+    @Slot()
+    def space(self):
+        self.currentWord = ac.autoCorrect(self.currentWord)
+        self.sentence += self.sentence + " " + self.currentWord
+        self.translatedLabel.setText(self.sentence + " " + self.currentWord)
 
 
 if __name__ == "__main__":
     app = QApplication()
     w = Window()
     w.show()
+    print("rendered")
     sys.exit(app.exec())
