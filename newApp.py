@@ -70,7 +70,7 @@ class Thread(QThread):
             color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             h, w, ch = color_frame.shape
             img = QImage(color_frame.data, w, h, ch * w, QImage.Format_RGB888)
-            scaled_img = img.scaled(640, 480, Qt.KeepAspectRatio)
+            scaled_img = img.scaled(960, 540, Qt.KeepAspectRatio)
 
             self.updateFrame.emit(scaled_img)
         sys.exit(-1)
@@ -85,7 +85,7 @@ class Window(QMainWindow):
 
         # Create a label for the display camera
         self.displayLabel = QLabel(self)
-        self.displayLabel.setFixedSize(640, 480)
+        self.displayLabel.setFixedSize(960, 540)
 
         # Thread in charge of updating the image
         self.th = Thread(self)
@@ -107,14 +107,14 @@ class Window(QMainWindow):
         buttons_layout.addWidget(self.stopButton)
         buttons_layout.addWidget(self.startButton)
 
-        right_layout = QHBoxLayout()
-        right_layout.addWidget(self.translatedLabel)
-        right_layout.addLayout(buttons_layout, 1)
+        bottomLayout = QHBoxLayout()
+        bottomLayout.addLayout(buttons_layout, 1)
 
         # Main layout
         layout = QVBoxLayout()
         layout.addWidget(self.displayLabel)
-        layout.addLayout(right_layout)
+        layout.addWidget(self.translatedLabel)
+        layout.addLayout(bottomLayout)
 
         # Central widget
         widget = QWidget(self)
