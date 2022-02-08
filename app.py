@@ -4,6 +4,7 @@ from signal import signal
 import sys
 from textwrap import wrap
 from tkinter import W
+from tokenize import String
 from turtle import right
 from PySide6 import QtCore, QtWidgets, QtGui
 from PySide6.QtCore import Qt, QThread, Signal, Slot, QTimer
@@ -70,10 +71,10 @@ class ImageThread(QThread):
 
 
 class UpdateThread(QThread):
-    updateLabel = Signal()
+    updateLabel = Signal(str)
 
     def __init__(self, parent=None):
-        QThread.__init__(self, parent)
+        QThread.__init__(self, parent=parent)
         self.prevChar = 'nothing'
         self.prevchangetime = time.time()
 
@@ -88,7 +89,7 @@ class UpdateThread(QThread):
                 self.prevChar = self.predicted_char
             if self.currenttime - self.prevchangetime >= 1 and self.predicted_char != 'nothing':
                 self.prevchangetime = time.time()
-                self.updateLabel.emmit(self.predicted_char)
+                self.updateLabel.emit(self.predicted_char)
 
 
 class Window(QMainWindow):
@@ -163,7 +164,7 @@ class Window(QMainWindow):
     def setImage(self, image):
         self.displayLabel.setPixmap(QPixmap.fromImage(image))
 
-    @Slot()
+    @Slot(str)
     def updateText(self, nextchar):
         self.currentWord += nextchar
         self.translatedLabel.setText(self.sentence + " " + self.currentWord)
