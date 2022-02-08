@@ -1,28 +1,12 @@
-from ctypes import alignment
-from re import A
-from signal import signal
 import sys
-from textwrap import wrap
-from tkinter import W
-from tokenize import String
-from turtle import right
-from PySide6 import QtCore, QtWidgets, QtGui
-from PySide6.QtCore import Qt, QThread, Signal, Slot, QTimer
-from PySide6.QtGui import QAction, QImage, QKeySequence, QPixmap
-from PySide6.QtWidgets import (QApplication, QComboBox, QGroupBox,
+from PySide6.QtCore import Qt, QThread, Signal, Slot
+from PySide6.QtGui import QImage,  QPixmap
+from PySide6.QtWidgets import (QApplication,
                                QHBoxLayout, QLabel, QMainWindow, QPushButton,
                                QSizePolicy, QVBoxLayout, QWidget)
-import tensorflow as tf
-import numpy as np
 import autocorrect as ac
 import detection as dt
-
-
-from cv2 import QRCodeDetector
-from matplotlib.widgets import Widget
-import os
 import time
-
 import cv2
 
 
@@ -38,28 +22,6 @@ class ImageThread(QThread):
         self.cap = cv2.VideoCapture(0)
         while self.status:
             frame = dt.detectImg(self.cap.read(0))[0]
-            # _, frame = self.cap.read()
-            # cv2.rectangle(frame, (100, 100), (300, 300), (0, 0, 255), 5)
-
-            # roi = frame[100:300, 100:300]
-            # img = cv2.resize(roi, (224, 224))
-
-            # img = img/255
-
-            # prediction = model.predict(img.reshape(1, 224, 224, 3))
-            # char_index = np.argmax(prediction)
-
-            # confidence = round(prediction[0, char_index]*100, 1)
-            # predicted_char = labels[char_index]
-
-            # font = cv2.FONT_HERSHEY_TRIPLEX
-            # fontScale = 1
-            # color = (0, 255, 255)
-            # thickness = 2
-
-            # msg = predicted_char + ', Conf: ' + str(confidence)+' %'
-            # cv2.putText(frame, msg, (80, 80), font,
-            #             fontScale, color, thickness)
 
             color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             h, w, ch = color_frame.shape
@@ -183,7 +145,7 @@ class Window(QMainWindow):
     def space(self):
         self.currentWord = ac.autoCorrect(self.currentWord)
         self.sentence += self.sentence + " " + self.currentWord
-        self.translatedLabel.setText(self.sentence + " " + self.currentWord)
+        self.translatedLabel.setText(self.sentence)
 
 
 if __name__ == "__main__":
