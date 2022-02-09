@@ -76,7 +76,6 @@ class Window(QMainWindow):
         # Thread in charge of when to update the translated text label
         self.uth = UpdateThread(self)
         self.uth.updateLabel.connect(self.updateText)
-        self.uth.start()
 
         # Labels layout
         self.translatedLabel = QLabel()
@@ -121,6 +120,7 @@ class Window(QMainWindow):
     def start(self):
         print("Starting...")
         self.ith.start()
+        self.uth.start()
 
     @Slot(QImage)
     def setImage(self, image):
