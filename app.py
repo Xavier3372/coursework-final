@@ -41,7 +41,6 @@ class UpdateThread(QThread):
         self.prevchangetime = time.time()
 
     def run(self):
-        print("thread running")
         self.cap = cv2.VideoCapture(0)
         while True:
             self.currenttime = time.time()
@@ -135,6 +134,7 @@ class Window(QMainWindow):
     @Slot()
     def reset(self):
         self.sentence = ""
+        self.currentWord = ""
         self.translatedLabel.setText(self.sentence + " " + self.currentWord)
 
     @Slot()
@@ -144,9 +144,15 @@ class Window(QMainWindow):
 
     @Slot()
     def space(self):
-        self.currentWord = ac.autoCorrect(self.currentWord)
-        self.sentence += self.sentence + " " + self.currentWord
-        self.translatedLabel.setText(self.sentence)
+        if self.autocorrectEnabled == True:
+            self.currentWord = ac.autoCorrect(self.currentWord)
+            self.sentence += " " + self.currentWord
+            self.currentWord = ""
+            self.translatedLabel.setText(self.sentence)
+        else:
+            self.sentence += " " + self.currentWord
+            self.currentWord = ""
+            self.translatedLabel.setText(self.sentence)
 
 
 if __name__ == "__main__":
