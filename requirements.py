@@ -4,6 +4,8 @@ cachetools==5.0.0
 certifi==2021.10.8
 charset-normalizer==2.0.11
 click==8.0.3
+Cython==0.29.27
+english-words==1.1.0
 flatbuffers==2.0
 gast==0.5.3
 google-auth==2.6.0
@@ -19,7 +21,7 @@ Keras-Preprocessing==1.1.2
 libclang==13.0.0
 Markdown==3.3.6
 nltk==3.6.7
-numpy==1.22.2
+numpy==1.21.0
 oauthlib==3.2.0
 opencv-python==4.5.5.62
 opt-einsum==3.3.0
@@ -27,9 +29,6 @@ pandas==1.4.0
 protobuf==3.19.4
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-PyQt6==6.2.3
-PyQt6-Qt6==6.2.3
-PyQt6-sip==13.2.1
 PySide6==6.2.3
 python-dateutil==2.8.2
 pytz==2021.3
@@ -50,6 +49,6 @@ tf-estimator-nightly==2.8.0.dev2021122109
 tqdm==4.62.3
 typing_extensions==4.0.1
 urllib3==1.26.8
-Werkzeug==2.0.3
+Werkzeug==2.0.2
 wrapt==1.13.3
 zipp==3.7.0
