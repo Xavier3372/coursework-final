@@ -46,7 +46,7 @@ source venv/bin/activate # Mac
 
 <b>Step 6.</b> Install dependencies
 <pre>
-pip install cython numpy six
+pip install numpy six
 pip install -r requirements.txt 
 </pre>
 
