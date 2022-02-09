@@ -49,7 +49,7 @@ class UpdateThread(QThread):
             if self.predicted_char != self.prevChar:
                 self.prevchangetime = time.time()
                 self.prevChar = self.predicted_char
-            if self.currenttime - self.prevchangetime >= 1 and self.predicted_char != 'nothing':
+            if self.currenttime - self.prevchangetime >= 1 and self.predicted_char != 'nothing' and self.predicted_char != 'delete':
                 self.prevchangetime = time.time()
                 self.updateLabel.emit(self.predicted_char)
 
