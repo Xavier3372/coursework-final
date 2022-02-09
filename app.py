@@ -16,7 +16,6 @@ class ImageThread(QThread):
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         self.status = True
-        self.cap = True
 
     def run(self):
         self.cap = cv2.VideoCapture(0)

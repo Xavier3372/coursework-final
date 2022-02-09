@@ -19,8 +19,8 @@ def detectImg(imFrame):
     frame = cv2.flip(frame, 1)
     cv2.rectangle(frame, (100, 100), (300, 300), (0, 0, 255), 5)
 
-    roi = frame[100:300, 100:300]
-    img = cv2.resize(roi, (224, 224))
+    detectionRegion = frame[100:300, 100:300]
+    img = cv2.resize(detectionRegion, (224, 224))
 
     img = img/255
 
