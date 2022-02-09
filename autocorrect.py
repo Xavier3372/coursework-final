@@ -5,13 +5,6 @@ from nltk.metrics.distance import edit_distance
 import pandas as pd
 import ssl
 
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    pass
-else:
-    ssl._create_default_https_context = _create_unverified_https_context
-
 
 def autoCorrect(wd):  # Checks edit distance, smaller edit distance = closest word match
     right_words = []
