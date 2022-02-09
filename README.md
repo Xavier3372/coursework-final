@@ -64,4 +64,4 @@ python3 app.py
 ### References
 <p> Below is a list of websites, videos and repositories referenced and used in the creation of this project </p>
 
-**Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on train the machine learning model.**
+**Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on which to train the machine learning model.**
