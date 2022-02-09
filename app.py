@@ -3,7 +3,7 @@ from PySide6.QtCore import Qt, QThread, Signal, Slot
 from PySide6.QtGui import QImage,  QPixmap
 from PySide6.QtWidgets import (QApplication,
                                QHBoxLayout, QLabel, QMainWindow, QPushButton,
-                               QSizePolicy, QVBoxLayout, QWidget)
+                               QSizePolicy, QVBoxLayout, QWidget, QCheckBox)
 import autocorrect as ac
 import detection as dt
 import time
@@ -67,7 +67,7 @@ class Window(QMainWindow):
         # Declare variables
         self.currentWord = ""
         self.sentence = ""
-        self.autocorrectEnabled = True
+        self.autocorrectEnabled = False
 
         # Thread in charge of updating the image
         self.ith = ImageThread(self)
@@ -86,6 +86,7 @@ class Window(QMainWindow):
         self.spaceButton = QPushButton("Next Word")
         self.backspaceButton = QPushButton("Backspace")
         self.resetButton = QPushButton("Reset")
+        self.acCheckbox = QCheckBox("Enable autocorrect")
         self.spaceButton.setSizePolicy(
             QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.backspaceButton.setSizePolicy(
@@ -95,6 +96,7 @@ class Window(QMainWindow):
         buttons_layout.addWidget(self.spaceButton)
         buttons_layout.addWidget(self.backspaceButton)
         buttons_layout.addWidget(self.resetButton)
+        buttons_layout.addWidget(self.acCheckbox)
 
         bottomLayout = QHBoxLayout()
         bottomLayout.addLayout(buttons_layout, 1)
@@ -112,6 +114,7 @@ class Window(QMainWindow):
 
         # Connections
         self.start()
+        self.acCheckbox.toggled.connect(self.checkboxCheck)
         self.resetButton.clicked.connect(self.reset)
         self.backspaceButton.clicked.connect(self.backspace)
         self.spaceButton.clicked.connect(self.space)
@@ -121,6 +124,15 @@ class Window(QMainWindow):
         print("Starting...")
         self.ith.start()
         self.uth.start()
+
+    @Slot()
+    def checkboxCheck(self):
+        if self.acCheckbox.isChecked(): 
+            self.autocorrectEnabled = True
+            print('autocorrect enabled')
+        else:
+            self.autocorrectEnabled = False
+            print("autocorrect disabled")
 
     @Slot(QImage)
     def setImage(self, image):
@@ -145,7 +157,7 @@ class Window(QMainWindow):
     @Slot()
     def space(self):
         if self.autocorrectEnabled == True:
-            self.currentWord = ac.autoCorrect(self.currentWord)
+            self.currentWord = ac.autoCorrect(self.currentWord).upper()
             self.sentence += " " + self.currentWord
             self.currentWord = ""
             self.translatedLabel.setText(self.sentence)
