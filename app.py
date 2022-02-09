@@ -86,7 +86,7 @@ class Window(QMainWindow):
         self.spaceButton = QPushButton("Next Word")
         self.backspaceButton = QPushButton("Backspace")
         self.resetButton = QPushButton("Reset")
-        self.acCheckbox = QCheckBox("Enable autocorrect")
+        self.acCheckbox = QCheckBox("Enable Autocorrect")
         self.spaceButton.setSizePolicy(
             QSizePolicy.Preferred, QSizePolicy.Expanding)
         self.backspaceButton.setSizePolicy(

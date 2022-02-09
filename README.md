@@ -49,7 +49,21 @@ python3 app.py
 </pre>
 
 ## Using the program
+### Buttons
+**Next word:** Use this button to move on to the next word in the sentence
 
+**Backspace:**  Use this button to remove the last letter that you entered into a word
+
+**Reset:** Use this button to reset the sentence and start a new sentence
+
+**Enable Autocorrect:** Use this button to toggle the autocorrect function of the program
+
+### Detection
+In order for a letter to be detected and appended into the word, the hand gesture corresponding to the letter would have to be held inside the recognition box for 0.5 seconds.
+
+This program recognises a modified version of conventional ASL that has a greater variation between the shapes of hand gestures to allow for more accurate differentiation of ASL gestures. A guide to this modified version of ASL can be found below. 
+
+For the greatest accuracy in the detection of ASL gestures, it is recomended that the hand gesture is done with a light coloured background.
 
 ## Credits
 ### Contributers
