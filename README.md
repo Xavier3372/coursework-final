@@ -63,6 +63,8 @@ In order for a letter to be detected and appended into the word, the hand gestur
 
 This program recognises a modified version of conventional ASL that has a greater variation between the shapes of hand gestures to allow for more accurate differentiation of ASL gestures. A guide to this modified version of ASL can be found below. 
 
+![alt text](gestureguide.jpeg)
+
 For the greatest accuracy in the detection of ASL gestures, it is recomended that the hand gesture is done with a light coloured background. Detection of characters works best when the hand being used for the gesture is placed like in the sample images above.
 
 ## Credits

@@ -3,6 +3,3 @@ models/
 dataset/
 __pycache__/
 .DS_STORE
-*.jpg
-*.jpeg
-*.png
