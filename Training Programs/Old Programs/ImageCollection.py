@@ -1,4 +1,4 @@
-# Program has been deprecated, use programs in folder "New Programs instead"
+# Program has been deprecated, use programs in folder "New Programs" instead
 
 # Written by Xavier Koh
 import time
