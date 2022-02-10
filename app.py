@@ -1,3 +1,6 @@
+# Written be Xavier Koh and Jerald Tee
+
+# Import Dependencies
 import sys
 from PySide6.QtCore import Qt, QThread, Signal, Slot
 from PySide6.QtGui import QImage,  QPixmap
@@ -10,45 +13,71 @@ import time
 import cv2
 
 
+# Declare video output thread
 class ImageThread(QThread):
     updateFrame = Signal(QImage)
-
+    
+    # Initialise Thread
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
+
+        # Declare variables
         self.status = True
 
     def run(self):
         self.cap = cv2.VideoCapture(0)
         while self.status:
+            # Run function from detection.py and save cv2 img data
             frame = dt.detectImg(self.cap.read(0))[0]
 
+            # Convert image color type
             color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+            # Convert image into QImage and scale image to 960x540 pixels
             h, w, ch = color_frame.shape
             img = QImage(color_frame.data, w, h, ch * w, QImage.Format_RGB888)
             scaled_img = img.scaled(960, 540, Qt.KeepAspectRatio)
 
+            # Emit output image
             self.updateFrame.emit(scaled_img)
         sys.exit(-1)
 
 
+# Declare gesture check thread
 class UpdateThread(QThread):
     updateLabel = Signal(str)
 
+    # Initialise Thread
     def __init__(self, parent=None):
         QThread.__init__(self, parent=parent)
+
+        # Declare variables
         self.prevChar = 'nothing'
         self.prevchangetime = time.time()
+
 
     def run(self):
         self.cap = cv2.VideoCapture(0)
         while True:
+            # Save current program time
             self.currenttime = time.time()
+
+            # Run function from detection.py and save the detected class
             self.predicted_char = dt.detectImg(self.cap.read())[1]
+
+            # Code below detects when a class has been detected for > 1 second and saves it
+            # Check if the detected class has changed and reset the previous change time
             if self.predicted_char != self.prevChar:
                 self.prevchangetime = time.time()
                 self.prevChar = self.predicted_char
-            if self.currenttime - self.prevchangetime >= 0.5 and self.predicted_char != 'nothing' and self.predicted_char != 'del':
+            
+            # Checks if time between current program time and the time when the detected class was last change is > 1 sec
+            if self.currenttime - self.prevchangetime >= 1 and self.predicted_char != 'nothing' and self.predicted_char != 'del':
+
+                # Reset previous class change time to allow for multiple subsequent detections of the same class
                 self.prevchangetime = time.time()
+
+                # Emit detected class
                 self.updateLabel.emit(self.predicted_char)
 
 
@@ -76,11 +105,11 @@ class Window(QMainWindow):
         self.uth = UpdateThread(self)
         self.uth.updateLabel.connect(self.updateText)
 
-        # Labels layout
+        # Translation label layout
         self.translatedLabel = QLabel()
         self.translatedLabel.setWordWrap(True)
 
-        # Buttons layout
+        # Bottom Row layout
         buttons_layout = QHBoxLayout()
         self.spaceButton = QPushButton("Next Word")
         self.backspaceButton = QPushButton("Backspace")
@@ -121,11 +150,14 @@ class Window(QMainWindow):
     @Slot()
     def start(self):
         print("Starting...")
+        # Starts both threads
         self.ith.start()
         self.uth.start()
 
     @Slot()
     def checkboxCheck(self):
+
+        # Checks if autocorrect checkbox is ticked and updates variable
         if self.acCheckbox.isChecked(): 
             self.autocorrectEnabled = True
             print('autocorrect enabled')
@@ -135,37 +167,44 @@ class Window(QMainWindow):
 
     @Slot(QImage)
     def setImage(self, image):
+        # Updates currently displayed frame when new frame is available
         self.displayLabel.setPixmap(QPixmap.fromImage(image))
 
     @Slot(str)
     def updateText(self, nextchar):
+        # Adds new character to current word when character has been held for > 1 second
         self.currentWord += nextchar
         self.translatedLabel.setText(self.sentence + " " + self.currentWord)
 
     @Slot()
     def reset(self):
+        # Resets translated text label
         self.sentence = ""
         self.currentWord = ""
         self.translatedLabel.setText(self.sentence + " " + self.currentWord)
 
     @Slot()
     def backspace(self):
+        # Removes last index from current word string
         self.currentWord = self.currentWord[:-1]
         self.translatedLabel.setText(self.sentence + " " + self.currentWord)
 
     @Slot()
     def space(self):
+        # Checks if autocorrect is enabled
         if self.autocorrectEnabled == True:
+            # Runs autocorrect and appends autocorrected word to the sentence
             self.currentWord = ac.autoCorrect(self.currentWord).upper()
             self.sentence += " " + self.currentWord
             self.currentWord = ""
             self.translatedLabel.setText(self.sentence)
         else:
+            # Append current word to the sentence
             self.sentence += " " + self.currentWord
             self.currentWord = ""
             self.translatedLabel.setText(self.sentence)
 
-
+# Runs app
 if __name__ == "__main__":
     app = QApplication()
     w = Window()

@@ -1,3 +1,6 @@
+# Written by Jovan Ang
+
+# Import Dependencies
 from english_words import english_words_set
 # The edit distance is the number of characters that need to be substituted, inserted, or deleted, to transform s1 into s2.
 from nltk.metrics.distance import edit_distance
