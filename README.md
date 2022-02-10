@@ -77,9 +77,6 @@ For the greatest accuracy in the detection of ASL gestures, it is recomended tha
 
 **[Xavier Koh](https://github.com/Xavier3372)**
 
-### References
-<p> Below is a list of websites, videos and repositories referenced and used in the creation of this project </p>
-
 **Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on which to train the machine learning model.**
 
 **Special Thanks to [Alexander Chow](https://medium.com/nerd-for-tech/coding-an-ai-to-recognize-sign-language-with-tensorflow-and-keras-6cf8180c5f45) for providing us with a tutorial on which to base our training code**
