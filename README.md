@@ -59,7 +59,7 @@ python3 app.py
 **Enable Autocorrect:** Use this button to toggle the autocorrect function of the program
 
 ### Detection
-In order for a letter to be detected and appended into the word, the hand gesture corresponding to the letter would have to be held inside the recognition box for 0.5 seconds.
+In order for a letter to be detected and appended into the word, the hand gesture corresponding to the letter would have to be held inside the recognition box for 1 second.
 
 This program recognises a modified version of conventional ASL that has a greater variation between the shapes of hand gestures to allow for more accurate differentiation of ASL gestures. A guide to this modified version of ASL can be found below. 
 
