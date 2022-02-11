@@ -69,15 +69,10 @@ For the greatest accuracy in the detection of ASL gestures, it is recomended tha
 
 ## Credits
 ### Contributers
-<p> Below is a list of contributers who helped with the creation of this project </p>
-
-**[Jovan Ang](https://github.com/DudeNav0J)**
-
-**[Jerald Tee](https://github.com/jeraldtea)**
-
-**[Xavier Koh](https://github.com/Xavier3372)**
+<p> Below is a list of people who helped with the creation of this project </p>
 
 **Special Thanks to [Kaggle](https://www.kaggle.com/grassknoted/asl-alphabet) for providing us with an extensive dataset on which to train the machine learning model.**
 
 **Special Thanks to [Alexander Chow](https://medium.com/nerd-for-tech/coding-an-ai-to-recognize-sign-language-with-tensorflow-and-keras-6cf8180c5f45) for providing us with a tutorial on which to base our training code**
 
+###### Developed with ❤️ by [Jovan Ang](https://github.com/DudeNav0J), [Jerald Tee](https://github.com/jeraldtea) and [Xavier Koh](https://github.com/Xavier3372)
