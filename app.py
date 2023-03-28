@@ -1,4 +1,4 @@
-# Written be Xavier Koh and Jerald Tee
+# Written by Xavier Koh and Jerald Tee
 
 # Import Dependencies
 import sys
